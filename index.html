@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TalkBridge — Clinic Mode</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700&family=Noto+Sans+Armenian:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Privacy Banner -->
+    <div class="banner" role="banner">
+        <p>Privacy-first: no storage by default. Export only with consent.</p>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <h1>TalkBridge — Clinic Mode</h1>
+        <div class="status-chip online" id="statusChip" role="status" aria-live="polite">
+            <span class="status-dot"></span>
+            <span class="status-text">Online</span>
+        </div>
+    </header>
+
+    <!-- Navigation Tabs -->
+    <nav role="navigation" aria-label="Main navigation">
+        <div class="tabs">
+            <button class="tab active" data-tab="clerk" aria-pressed="true" aria-controls="clerk-panel">
+                Clerk View
+            </button>
+            <button class="tab" data-tab="customer" aria-pressed="false" aria-controls="customer-panel">
+                Customer View
+            </button>
+            <button class="tab" data-tab="settings" aria-pressed="false" aria-controls="settings-panel">
+                Settings
+            </button>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Clerk View Panel -->
+        <section id="clerk-panel" class="panel active" role="tabpanel" aria-labelledby="clerk-tab">
+            <div class="clerk-container">
+                <!-- Left Controls -->
+                <div class="controls-panel">
+                    <div class="control-group">
+                        <h3>Microphone</h3>
+                        <button id="micButton" class="control-button mic-button" aria-pressed="false" title="Start/Stop microphone">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3z"/>
+                                <path d="M17 11c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z"/>
+                            </svg>
+                            <span>Start Mic</span>
+                        </button>
+                    </div>
+
+                    <div class="control-group">
+                        <h3>Target Language</h3>
+                        <div class="language-buttons">
+                            <button class="lang-button active" data-lang="es" aria-pressed="true">ES</button>
+                            <button class="lang-button" data-lang="hy" aria-pressed="false">HY</button>
+                            <button class="lang-button" data-lang="en" aria-pressed="false">EN</button>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <h3>Translation</h3>
+                        <button id="translateToggle" class="control-button toggle-button" aria-pressed="false" title="Toggle translation on/off">
+                            <span>Off</span>
+                        </button>
+                    </div>
+
+
+                    <div class="control-group">
+                        <h3>Demo Controls</h3>
+                        <div class="demo-controls">
+                            <button id="playDemo" class="control-button" title="Play demo">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M8 5v14l11-7z"/>
+                                </svg>
+                                Play Demo
+                            </button>
+                            <button id="pauseDemo" class="control-button" title="Pause demo" disabled>
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
+                                </svg>
+                                Pause
+                            </button>
+                            <button id="rewindDemo" class="control-button" title="Rewind 5 lines">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M11 18V6l-8.5 6 8.5 6zm.5-12l8.5 6-8.5 6V6z"/>
+                                </svg>
+                                Rewind 5
+                            </button>
+                            <button id="clearDemo" class="control-button" title="Clear transcript">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+                                </svg>
+                                Clear
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <h3>Export</h3>
+                        <button id="exportButton" class="control-button export-button" disabled title="Export transcript (requires consent)">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/>
+                            </svg>
+                            Export
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Right Transcript -->
+                <div class="transcript-panel">
+                    <h3>Live Transcript</h3>
+                    <div class="transcript-area" id="transcriptArea" role="log" aria-live="polite" aria-label="Live transcript">
+                        <div class="transcript-line source-line" id="sourceLine">
+                            <span class="line-label">Source:</span>
+                            <span class="line-text">Ready to start...</span>
+                        </div>
+                        <div class="transcript-line target-line" id="targetLine" style="display: none;">
+                            <span class="line-label">Target:</span>
+                            <span class="line-text"></span>
+                        </div>
+                    </div>
+
+                    <div class="history-section">
+                        <h4>History (Last 5 lines)</h4>
+                        <div class="history-area" id="historyArea" role="log" aria-live="polite" aria-label="Transcript history">
+                            <!-- Populated by JavaScript -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Customer View Panel -->
+        <section id="customer-panel" class="panel" role="tabpanel" aria-labelledby="customer-tab">
+            <div class="customer-container">
+                <div class="customer-controls">
+                    <div class="font-controls">
+                        <label for="fontSizeSlider">Font Size:</label>
+                        <input type="range" id="fontSizeSlider" min="24" max="96" value="72" aria-label="Font size slider">
+                        <span id="fontSizeValue">72pt</span>
+                    </div>
+                    <div class="customer-buttons">
+                        <button id="customerPause" class="control-button" title="Pause/Resume">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
+                            </svg>
+                            Pause
+                        </button>
+                        <button id="customerRewind" class="control-button" title="Rewind 5 lines">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M11 18V6l-8.5 6 8.5 6zm.5-12l8.5 6-8.5 6V6z"/>
+                            </svg>
+                            Rewind 5
+                        </button>
+                        <button id="fullscreenButton" class="control-button" title="Toggle fullscreen">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/>
+                            </svg>
+                            Fullscreen
+                        </button>
+                    </div>
+                </div>
+                <div class="big-text-area" id="bigTextArea" role="log" aria-live="polite" aria-label="Customer view transcript">
+                    <div class="big-text-line" id="bigSourceLine">
+                        <div class="big-text-label">Source:</div>
+                        <div class="big-text-content">Ready to start...</div>
+                    </div>
+                    <div class="big-text-line" id="bigTargetLine" style="display: none;">
+                        <div class="big-text-label">Target:</div>
+                        <div class="big-text-content"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Settings Panel -->
+        <section id="settings-panel" class="panel" role="tabpanel" aria-labelledby="settings-tab">
+            <div class="settings-container">
+                <h2>Settings</h2>
+                
+                <div class="setting-group">
+                    <h3>Display</h3>
+                    <div class="setting-item">
+                        <label for="highContrastToggle">
+                            <input type="checkbox" id="highContrastToggle">
+                            High Contrast Theme
+                        </label>
+                    </div>
+                    <div class="setting-item">
+                        <label for="translitToggle">
+                            <input type="checkbox" id="translitToggle">
+                            Armenian Transliteration (show Latin script for Armenian)
+                        </label>
+                    </div>
+                </div>
+
+                <div class="setting-group">
+                    <h3>Connection</h3>
+                    <div class="setting-item">
+                        <label for="offlineToggle">
+                            <input type="checkbox" id="offlineToggle">
+                            Offline Demo Mode
+                        </label>
+                    </div>
+                </div>
+
+                <div class="setting-group">
+                    <h3>Keyboard Shortcuts</h3>
+                    <div class="shortcuts-list">
+                        <div class="shortcut-item">
+                            <kbd>Space</kbd> <span>Start/Stop microphone</span>
+                        </div>
+                        <div class="shortcut-item">
+                            <kbd>1</kbd> <span>English</span>
+                        </div>
+                        <div class="shortcut-item">
+                            <kbd>2</kbd> <span>Spanish</span>
+                        </div>
+                        <div class="shortcut-item">
+                            <kbd>3</kbd> <span>Armenian</span>
+                        </div>
+                        <div class="shortcut-item">
+                            <kbd>T</kbd> <span>Toggle translation</span>
+                        </div>
+                        <div class="shortcut-item">
+                            <kbd>P</kbd> <span>Pause/Resume</span>
+                        </div>
+                        <div class="shortcut-item">
+                            <kbd>R</kbd> <span>Rewind 5 lines</span>
+                        </div>
+                        <div class="shortcut-item">
+                            <kbd>H</kbd> <span>Toggle history</span>
+                        </div>
+                        <div class="shortcut-item">
+                            <kbd>F</kbd> <span>Toggle fullscreen</span>
+                        </div>
+                        <div class="shortcut-item">
+                            <kbd>+/-</kbd> <span>Font size up/down</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>No PHI in demo.</p>
+    </footer>
+
+    <!-- Consent Modal -->
+    <div id="consentModal" class="modal" role="dialog" aria-labelledby="consentTitle" aria-hidden="true">
+        <div class="modal-content">
+            <h3 id="consentTitle">Export Consent</h3>
+            <p>To export transcript data, we need your consent to download the last 20 lines as a text file. This data will not be stored or transmitted anywhere.</p>
+            <div class="modal-buttons">
+                <button id="consentAccept" class="control-button primary">I Consent</button>
+                <button id="consentCancel" class="control-button">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
