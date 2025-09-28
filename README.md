@@ -38,7 +38,7 @@ const SUPABASE_ANON_KEY = 'YOUR-ANON-KEY';
 Export stays OFF until the user clicks "I consent." ⚙️
 
 ## Tech
-Vanilla HTML/CSS/JS. No frameworks. Fonts: Noto Sans / Noto Sans Armenian.
+HTML/CSS/JS. No frameworks. Fonts: Noto Sans / Noto Sans Armenian.
 
 ## Roadmap
 - Medical quick-phrases set
@@ -51,4 +51,5 @@ Glendale 1-Day Hackathon (2025). Student project.
 
 ## License
 kokoc30
+
 
