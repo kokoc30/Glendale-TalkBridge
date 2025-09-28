@@ -28,7 +28,7 @@ Space = Start/Stop · 1/2/3 = EN/ES/HY · T = Translate · P = Pause/Resume · R
 ![Home View](2.png)
 ![custumer View](3.png)
 
-## Supabase Export (
+## Supabase Export 
 1) Run `supabase/schema.sql` in your project.
 2) In `app.js`, paste your keys:
 ```js
@@ -51,5 +51,6 @@ Glendale 1-Day Hackathon (2025). Student project.
 
 ## License
 kokoc30
+
 
 
