@@ -25,12 +25,10 @@ Space = Start/Stop · 1/2/3 = EN/ES/HY · T = Translate · P = Pause/Resume · R
 **No storage by default.** Export requires consent. The demo uses **no PHI**.
 
 ## Screenshots
-_Add images to `/screenshots` and link them here._
-![Kiosk View](screenshots/kiosk.png)
-![Clerk View](screenshots/clerk.png)
+![Home View](2.png)
+![custumer View](3.png)
 
-## Optional: Supabase Export (later)
-If you want to save lines **after consent**, wire Supabase:
+## Supabase Export (
 1) Run `supabase/schema.sql` in your project.
 2) In `app.js`, paste your keys:
 ```js
@@ -53,3 +51,4 @@ Glendale 1-Day Hackathon (2025). Student project.
 
 ## License
 kokoc30
+
